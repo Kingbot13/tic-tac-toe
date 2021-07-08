@@ -1,0 +1,11 @@
+main{
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(5, auto);
+}
+
+.box{
+    height: 100px;
+    width: 100px;
+    border: 10px round blue;
+}
