@@ -1,11 +1,24 @@
+body{
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
 main{
     display: grid;
-    grid-template-columns: repeat(5, auto);
-    grid-template-rows: repeat(5, auto);
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    height: 500px;
+    width: 500px;
+    overflow: hidden;
 }
 
 .box{
-    height: 100px;
-    width: 100px;
-    border: 10px round blue;
+    height: 100%;
+    width: 100%;
+    border: 10px solid blue;
 }
