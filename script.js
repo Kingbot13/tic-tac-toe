@@ -5,3 +5,13 @@
         IIFE
     add player object (use factory funtion)
 */
+
+const Gameboard = (() => {
+    let arr = []; // store contents
+    const _renderContents = () => {
+        for (let i = 0; i < arr.length; i++){
+            // check for content and render in appropriate div
+        };
+    };
+    return {arr};
+})();
