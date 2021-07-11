@@ -1,5 +1,6 @@
 body{
     text-align: center;
+    font-size: 30px;
 }
 
 .container{
@@ -21,4 +22,7 @@ main{
     height: 100%;
     width: 100%;
     border: 10px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
