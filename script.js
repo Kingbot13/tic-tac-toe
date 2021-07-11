@@ -15,3 +15,15 @@ const Gameboard = (() => {
     };
     return {arr};
 })();
+
+const Player = (name) => {
+    return {name};
+};
+
+const player1 = Player("Player1");
+const player2 = Player("player2");
+
+const Game = (() => {
+    // control turns between player
+    // push player selection to array
+})
