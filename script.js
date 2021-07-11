@@ -3,16 +3,13 @@
         add array to store x's and o's
             store each "box" as an object in array
     add game object to control game flow
-        IIFE
+        
     add player object (use factory funtion)
 */
 
+const log = console.log;
+
 const Gameboard = (() => {
-    // let _boxes = document.querySelectorAll(".box");
-
-    // const _boxObj = () => {
-
-    // }
 
     let arr = ["x", "o", "o", "x", "x", "o", "x", "o", "o"]; // store contents
 
@@ -26,16 +23,54 @@ const Gameboard = (() => {
     return {arr, renderContents};
 })();
 
-Gameboard.renderContents();
 
 const Player = (name) => {
     return {name};
 };
 
 const player1 = Player("Player1");
-const player2 = Player("player2");
+const player2 = Player("Player2");
 
 const Game = (() => {
     // control turns between player
     // push player selection to array
+    // add counter to track turns... odd numbers means player1, even means player2
+    let counter = 0;
+
+    // const playerSelection = () => {
+    //     let mark;
+    //     if (counter % 2 !== 0){
+    //         mark = "x";
+    //     } else {
+    //         mark = "o";
+    //     };
+    //     return mark;
+    // };
+
+    const boxes = document.querySelectorAll(".box");
+    const play = () => {
+        boxes.forEach((box) => {
+            box.addEventListener("click", (e) => {
+                let mark;
+                if (counter % 2 !== 0){
+                    mark = "x";
+                } else {
+                    mark = "o"
+                };
+
+                log(e.target);
+                let key = parseInt(e.target.dataset.key);
+                log(key);
+                log(typeof(key));
+                Gameboard.arr.splice(key, 1, mark);
+                counter++
+                log(counter);
+                // log(playerSelection);
+            });  
+        });
+    };
+    return {play};
 })();
+
+Game.play();
+Gameboard.renderContents();
