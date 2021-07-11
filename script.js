@@ -11,7 +11,7 @@ const log = console.log;
 
 const Gameboard = (() => {
 
-    let arr = ["x", "o", "o", "x", "x", "o", "x", "o", "o"]; // store contents
+    let arr = ["", "", "", "", "", "", "", "", ""]; // store contents
 
     const renderContents = () => {
         for (let i = 0; i < arr.length; i++){
@@ -52,7 +52,7 @@ const Game = (() => {
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
                 let mark;
-                if (counter % 2 !== 0){
+                if (counter % 2 === 0){
                     mark = "x";
                 } else {
                     mark = "o"
@@ -62,7 +62,10 @@ const Game = (() => {
                 let key = parseInt(e.target.dataset.key);
                 log(key);
                 log(typeof(key));
+                log(mark);
+                log(Gameboard.arr);
                 Gameboard.arr.splice(key, 1, mark);
+                Gameboard.renderContents();
                 counter++
                 log(counter);
                 // log(playerSelection);
@@ -73,4 +76,4 @@ const Game = (() => {
 })();
 
 Game.play();
-Gameboard.renderContents();
+// Gameboard.renderContents();
