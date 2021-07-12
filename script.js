@@ -12,7 +12,7 @@ const log = console.log;
 const Gameboard = (() => {
 
     let arr = ["", "", "", "", "", "", "", "", ""]; // store contents
-
+    const arrSlice = arr.slice();
     const renderContents = () => {
         for (let i = 0; i < arr.length; i++){
             // check for content and render in appropriate div
@@ -20,11 +20,20 @@ const Gameboard = (() => {
             box.textContent = `${arr[i]}`;
         };
     };
-    return {arr, renderContents};
+
+    const reset = () => {
+        const resetBtn = document.querySelector(".reset");
+        resetBtn.addEventListener("click", () => {
+            arr.splice(0, 9, "", "", "", "", "", "", "", "", "");
+            renderContents();
+        });
+    };
+    return {arr, renderContents, reset};
 })();
 
 
 const Player = (name) => {
+
     return {name};
 };
 
@@ -36,16 +45,6 @@ const Game = (() => {
     // push player selection to array
     // add counter to track turns... odd numbers means player1, even means player2
     let counter = 0;
-
-    // const playerSelection = () => {
-    //     let mark;
-    //     if (counter % 2 !== 0){
-    //         mark = "x";
-    //     } else {
-    //         mark = "o";
-    //     };
-    //     return mark;
-    // };
 
     const boxes = document.querySelectorAll(".box");
     const play = () => {
@@ -71,9 +70,11 @@ const Game = (() => {
                 // log(playerSelection);
             });  
         });
+        // Gameboard.reset();
     };
+
     return {play};
 })();
 
 Game.play();
-// Gameboard.renderContents();
+Gameboard.reset();
