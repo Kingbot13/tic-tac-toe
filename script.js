@@ -47,6 +47,27 @@ const Game = (() => {
     let counter = 0;
 
     const boxes = document.querySelectorAll(".box");
+
+    /* 
+        if row 1 cells are the same
+        if row 2
+        if row 3
+        if column 1
+        if column 2
+        if column 3
+        if arr[1], arr[5], arr[9]
+        if arr[3], arr[5], arr[7]
+    */
+
+    const checkWin = () => {
+        let arr = Gameboard.arr;
+        for (let i = 0; i < 3; i++){
+            if (arr[i] === arr[i + 1]){
+                
+            }
+        }
+    }
+
     const play = () => {
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
@@ -58,16 +79,17 @@ const Game = (() => {
                         mark = "o"
                     };
     
-                    log(e.target);
+                    // log(e.target);
                     let key = parseInt(e.target.dataset.key);
-                    log(key);
-                    log(typeof(key));
-                    log(mark);
+                    // log(key);
+                    // log(typeof(key));
+                    // log(mark);
                     log(Gameboard.arr);
                     Gameboard.arr.splice(key, 1, mark);
                     Gameboard.renderContents();
-                    counter++
-                    log(counter);
+                    counter++;
+                    log(document.querySelector(`[data-key="8"]`).textContent);
+                    // log(counter);
                     // log(playerSelection);
 
                 };
