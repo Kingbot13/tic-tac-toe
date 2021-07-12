@@ -39,42 +39,33 @@ const Game = (() => {
     let counter = 0;
 
     const boxes = document.querySelectorAll(".box");
-
-    /* 
-        if row 1 cells are the same
-        if row 2
-        if row 3
-        if column 1
-        if column 2
-        if column 3
-        if arr[1], arr[5], arr[9]
-        if arr[3], arr[5], arr[7]
-    */
-
-    const winConditions = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]
-    ];
-
-    
-    
-    const checkWin = () => {
+   
+   const checkWin = () => {
+       let arr = Gameboard.arr;
+        const winConditions = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ];
         let winner;
         const winMsg = `${winner} won the game!`;
         const tieMsg = `It's a tie!`;
         let gameMsg = document.createElement("p");
         let gameOver = false;
-        for (let i = 0; i < 3; i++){
+        for (let i = 0; i < 8; i++){
             let condition = winConditions[i];
-            let a = condition[0];
-            let b = condition[1];
-            let c = condition[2];
+            let a = arr[condition[0]];
+            let b = arr[condition[1]];
+            let c = arr[condition[2]];
+            log("a", a);
+            log("b", b);
+            log("c", c);
+
             if (a === "" || b === "" || c === ""){
                 continue;
             } else if (a === b && b === c){
@@ -89,10 +80,12 @@ const Game = (() => {
             } else if (!Gameboard.arr.includes("")){
                 gameOver = true
                 gameMsg.textContent = tieMsg;
+                return;
             };
         };
         if (gameOver){
             Gameboard.display.appendChild(gameMsg);
+            return;
         };
         return gameOver;
     };
@@ -101,6 +94,7 @@ const Game = (() => {
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
                 if (box.textContent === ""){
+                    checkWin();
                     log(checkWin());
                     if (!checkWin()){
                         let mark;
@@ -119,7 +113,7 @@ const Game = (() => {
                         Gameboard.arr.splice(key, 1, mark);
                         Gameboard.renderContents();
                         counter++;
-                        log(document.querySelector(`[data-key="8"]`).textContent);
+                        // log(document.querySelector(`[data-key="8"]`).textContent);
                         // log(counter);
                         // log(playerSelection);
 
