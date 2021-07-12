@@ -12,7 +12,7 @@ const log = console.log;
 const Gameboard = (() => {
 
     let arr = ["", "", "", "", "", "", "", "", ""]; // store contents
-    const arrSlice = arr.slice();
+
     const renderContents = () => {
         for (let i = 0; i < arr.length; i++){
             // check for content and render in appropriate div
@@ -50,27 +50,29 @@ const Game = (() => {
     const play = () => {
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
-                let mark;
-                if (counter % 2 === 0){
-                    mark = "x";
-                } else {
-                    mark = "o"
-                };
+                if (box.textContent === ""){
+                    let mark;
+                    if (counter % 2 === 0){
+                        mark = "x";
+                    } else {
+                        mark = "o"
+                    };
+    
+                    log(e.target);
+                    let key = parseInt(e.target.dataset.key);
+                    log(key);
+                    log(typeof(key));
+                    log(mark);
+                    log(Gameboard.arr);
+                    Gameboard.arr.splice(key, 1, mark);
+                    Gameboard.renderContents();
+                    counter++
+                    log(counter);
+                    // log(playerSelection);
 
-                log(e.target);
-                let key = parseInt(e.target.dataset.key);
-                log(key);
-                log(typeof(key));
-                log(mark);
-                log(Gameboard.arr);
-                Gameboard.arr.splice(key, 1, mark);
-                Gameboard.renderContents();
-                counter++
-                log(counter);
-                // log(playerSelection);
+                };
             });  
         });
-        // Gameboard.reset();
     };
 
     return {play};
