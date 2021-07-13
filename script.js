@@ -22,7 +22,7 @@ const Gameboard = (() => {
             renderContents();
         });
     };
-    return {arr, renderContents, reset};
+    return {arr, display, renderContents, reset};
 })();
 
 
@@ -32,6 +32,7 @@ const Player = (name) => {
 };
 
 const player1 = Player("Player1");
+log("player1", player1.name);
 const player2 = Player("Player2");
 
 const Game = (() => {
@@ -40,6 +41,7 @@ const Game = (() => {
 
     const boxes = document.querySelectorAll(".box");
    
+    let gameOver = false;
    const checkWin = () => {
        let arr = Gameboard.arr;
         const winConditions = [
@@ -56,47 +58,46 @@ const Game = (() => {
         const winMsg = `${winner} won the game!`;
         const tieMsg = `It's a tie!`;
         let gameMsg = document.createElement("p");
-        let gameOver = false;
         for (let i = 0; i < 8; i++){
             let condition = winConditions[i];
             let a = arr[condition[0]];
             let b = arr[condition[1]];
             let c = arr[condition[2]];
-            log("a", a);
-            log("b", b);
-            log("c", c);
 
             if (a === "" || b === "" || c === ""){
                 continue;
             } else if (a === b && b === c){
                 if (a === "x"){
-                    winner = player1;
+                    winner = player1.name;
                 } else {
-                    winner = player2;
+                    winner = player2.name;
                 };
                 gameOver = true;
                 gameMsg.textContent = winMsg;
                 break;
             } else if (!Gameboard.arr.includes("")){
-                gameOver = true
+                gameOver = true;
                 gameMsg.textContent = tieMsg;
                 return;
             };
         };
         if (gameOver){
-            Gameboard.display.appendChild(gameMsg);
-            return;
+            if (Gameboard.display.childNodes.length === 0){
+                Gameboard.display.appendChild(gameMsg);
+                return;
+            };
         };
         return gameOver;
     };
 
+
     const play = () => {
+        document.addEventListener("click", checkWin);
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
                 if (box.textContent === ""){
-                    checkWin();
-                    log(checkWin());
-                    if (!checkWin()){
+                    // checkWin();
+                    if (!gameOver){
                         let mark;
                         if (counter % 2 === 0){
                             mark = "x";
@@ -104,19 +105,11 @@ const Game = (() => {
                             mark = "o"
                         };
         
-                        // log(e.target);
                         let key = parseInt(e.target.dataset.key);
-                        // log(key);
-                        // log(typeof(key));
-                        // log(mark);
                         log(Gameboard.arr);
                         Gameboard.arr.splice(key, 1, mark);
                         Gameboard.renderContents();
                         counter++;
-                        // log(document.querySelector(`[data-key="8"]`).textContent);
-                        // log(counter);
-                        // log(playerSelection);
-
                     };
 
                 };
@@ -124,8 +117,9 @@ const Game = (() => {
         });
     };
 
-    return {play};
+    return {play, checkWin};
 })();
 
 Game.play();
+
 Gameboard.reset();
