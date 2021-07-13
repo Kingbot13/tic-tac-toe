@@ -26,20 +26,32 @@ const Gameboard = (() => {
 })();
 
 
-const Player = (name) => {
-
-    return {name};
+const Player = () => {
+    let btn = document.querySelector("#submit");
+    let player1;
+    let player2;
+    btn.addEventListener("click", () => {
+        player1 = document.querySelector("#player1").value;
+        player2 = document.querySelector("#player2").value;
+        // log("player1", player1);
+        // log("player2", player2);
+    });
+    
+    return {player1, player2};
 };
 
-const player1 = Player("Player1");
-log("player1", player1.name);
-const player2 = Player("Player2");
+// const player1 = Player().player1;
+// const player2 = Player().player2;
 
 const Game = (() => {
     // add counter to track turns... even numbers means player1, odd means player2
     let counter = 0;
 
     const boxes = document.querySelectorAll(".box");
+
+    Player();
+    let player1 = Player().player1;
+    let player2 = Player().player2;
    
     let gameOver = false;
    const checkWin = () => {
@@ -55,7 +67,6 @@ const Game = (() => {
             [2,4,6]
         ];
         let winner;
-        const winMsg = `${winner} won the game!`;
         const tieMsg = `It's a tie!`;
         let gameMsg = document.createElement("p");
         for (let i = 0; i < 8; i++){
@@ -68,11 +79,13 @@ const Game = (() => {
                 continue;
             } else if (a === b && b === c){
                 if (a === "x"){
-                    winner = player1.name;
+                    winner = player1;
                 } else {
-                    winner = player2.name;
+                    winner = player2;
                 };
                 gameOver = true;
+                const winMsg = `${winner} won the game!`;
+
                 gameMsg.textContent = winMsg;
                 break;
             } else if (!Gameboard.arr.includes("")){
@@ -87,6 +100,9 @@ const Game = (() => {
                 return;
             };
         };
+        log(player1);
+        log(player2);
+        log("winner", winner);
         return gameOver;
     };
 
@@ -96,7 +112,6 @@ const Game = (() => {
         boxes.forEach((box) => {
             box.addEventListener("click", (e) => {
                 if (box.textContent === ""){
-                    // checkWin();
                     if (!gameOver){
                         let mark;
                         if (counter % 2 === 0){

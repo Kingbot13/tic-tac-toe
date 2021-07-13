@@ -13,6 +13,7 @@ body{
     display: flex;
     margin: auto;
     justify-content: center;
+    flex-direction: column;
 }
 
 main{
