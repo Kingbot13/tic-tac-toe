@@ -26,32 +26,29 @@ const Gameboard = (() => {
 })();
 
 
-const Player = () => {
-    let btn = document.querySelector("#submit");
-    let player1;
-    let player2;
-    btn.addEventListener("click", () => {
-        player1 = document.querySelector("#player1").value;
-        player2 = document.querySelector("#player2").value;
-        // log("player1", player1);
-        // log("player2", player2);
-    });
+const Player = (name) => { // store player objects
     
-    return {player1, player2};
+    return {name};
 };
 
-// const player1 = Player().player1;
-// const player2 = Player().player2;
+const Game = (() => { // control game flow
 
-const Game = (() => {
+    let player1;
+    let player2;
+    const btn = document.querySelector("#submit");
+    btn.addEventListener("click", () => { // grab submitted player names
+        let player1Name = document.querySelector("#player1").value;
+        let player2Name = document.querySelector("#player2").value;
+        player1 = Player(player1Name);
+        player2 = Player(player2Name);
+        log("player1", player1);
+        log("player2", player2);
+    });
+
     // add counter to track turns... even numbers means player1, odd means player2
     let counter = 0;
 
     const boxes = document.querySelectorAll(".box");
-
-    Player();
-    let player1 = Player().player1;
-    let player2 = Player().player2;
    
     let gameOver = false;
    const checkWin = () => {
@@ -79,9 +76,9 @@ const Game = (() => {
                 continue;
             } else if (a === b && b === c){
                 if (a === "x"){
-                    winner = player1;
+                    winner = player1.name;
                 } else {
-                    winner = player2;
+                    winner = player2.name;
                 };
                 gameOver = true;
                 const winMsg = `${winner} won the game!`;
@@ -100,9 +97,9 @@ const Game = (() => {
                 return;
             };
         };
-        log(player1);
-        log(player2);
-        log("winner", winner);
+        // log(player1);
+        // log(player2);
+        // log("winner", winner);
         return gameOver;
     };
 
